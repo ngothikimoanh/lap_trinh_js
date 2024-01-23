@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #card {
+        display: inline-block;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <table>
+        <tr>
+          <th>Product Name</th>
+          <th>Product Picture</th>
+          <th>Poduct Price</th>
+        </tr>
+        <tr>
+          <td><input type="text" id="product_name" /></td>
+          <td><input type="file" id="product_image" /></td>
+          <td><input type="number" id="product_price" /></td>
+        </tr>
+      </table>
+      <button id="add_product_btn">Add</button>
+    </div>
+    <h2>ĐIỆN THOẠI NỔI BẬT NHẤT</h2>
+    <div id="products"></div>
+  </body>
+
+  <script>
+    var products = document.getElementById("products");
+    var products_list = [];
+
+    var product_name = document.getElementById("product_name");
+    var product_price = document.getElementById("product_price");
+    var product_image = document.getElementById("product_image");
+
+    var add_product_btn = document.getElementById("add_product_btn");
+
+    const create_item = (name, price, image) => {
+      return `
+            <div id = "card">
+                <div>Name: ${name}</div>
+                ${
+                  image
+                    ? `<img src='${image}' alt="load img" height="100px">`
+                    : "No image available"
+                }
+                <div>Price: ${price}</div>
+            </div>
+            `;
+    };
+
+    add_product_btn.addEventListener("click", () => {
+      // Clear product list before adding
+      products.innerHTML = "";
+
+      // Add item to products list
+      products_list.push({
+        name: product_name.value,
+        price: product_price.value,
+        image:
+          product_image.files.length === 1
+            ? URL.createObjectURL(product_image.files[0])
+            : null,
+      });
+      products_list.sort(function (first, second) {
+        return first.price - second.price;
+      });
+
+      // Render product to screen
+      products.innerHTML = products_list.reduce((pre, item) => {
+        return pre + create_item(item.name, item.price, item.image);
+      }, "");
+    });
+  </script>
+</html>

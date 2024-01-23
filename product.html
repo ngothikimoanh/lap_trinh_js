@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="products"></div>
+
+        <div>
+            <input type="text" id="product_name" />
+            <input type="number" id="product_price" />
+            <input type="file" id="product_image" />
+            <button id="add_product_btn">Add</button>
+        </div>
+    </body>
+
+    <script>
+        var products = document.getElementById('products');
+        var products_list = [];
+
+        var product_name = document.getElementById('product_name');
+        var product_price = document.getElementById('product_price');
+        var product_image = document.getElementById('product_image');
+
+        var add_product_btn = document.getElementById('add_product_btn');
+
+        const create_item = (name, price, image) => {
+            return `
+            <div>
+                <div>${name}</div>
+                <div>${price}</div>
+                <img src='${image}' alt="load img" height="100px">
+            </div>
+            `;
+        };
+
+        add_product_btn.addEventListener('click', () => {
+            // Clear product list before adding
+            products.innerHTML = '';
+
+            // Add item to products list
+            products_list.push({
+                name: product_name.value,
+                price: product_price.value,
+                image: URL.createObjectURL(product_image.files[0]),
+            });
+            console.log(products_list);
+
+            products_list.sort(function (first, second) {
+                return first.price - second.price
+            });
+
+            // Render product to screen
+            products.innerHTML = products_list.reduce((pre, item) => {
+                return pre + create_item(item.name, item.price, item.image);
+            }, '');
+        });
+    </script>
+</html>
