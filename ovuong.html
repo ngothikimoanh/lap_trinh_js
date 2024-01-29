@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .square {
+        height: 100px;
+        width: 100px;
+        border: 1px solid black;
+        background-color: yellow;
+        display: inline-block;
+        margin: 5px;
+        text-align: center; /* Center the random letter */
+        font-size: 40px; /* Adjust font size as needed */
+      }
+
+      @media (max-width: 768px) {
+        .square {
+          width: 50px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+
+    <script>
+      // const container = document.getElementById("container");
+
+      // Create the squares and add click events
+      // for (let i = 0; i < 5; i++) {
+      //   const row = document.createElement("div");
+
+      //   for (let j = 0; j < 10; j++) {
+      //     const square = document.createElement("div");
+      //     square.classList.add("square");
+      //     square.addEventListener("click", () => {
+      //       square.textContent = getRandomLetter();
+      //     });
+      //     row.appendChild(square);
+      //   }
+
+      //   container.appendChild(row);
+      // }
+
+      // // Function to generate a random letter
+      // function getRandomLetter() {
+      //   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      //   return letters[Math.floor(Math.random() * letters.length)];
+      // }
+
+      // Get a reference to the container div
+      const container = document.getElementById("container");
+
+      // Create 5 rows of squares
+      for (let i = 0; i < 5; i++) {
+        const row = document.createElement("div"); // Create a row div
+
+        // Create 10 squares within each row
+        for (let j = 0; j < 10; j++) {
+          const square = document.createElement("div");
+          square.classList.add("square");
+          square.style.position = "relative";
+
+          // Create a text element to hold the random letter
+          const letterText = document.createElement("span");
+          letterText.classList.add("letter"); // Add a class for styling
+          letterText.textContent = ""; // Set the initial text content to empty
+          letterText.style.top = "50%"; // Set the top position of the text element to 50% of the square height
+          letterText.style.left = "50%";
+          letterText.style.position = "absolute"; // Set the position of the text element to absolute
+          square.appendChild(letterText);
+
+          // Assign a unique ID to each square for identification
+          square.id = `square-${i}-${j}`;
+
+          // Add click event listener to the square
+          square.addEventListener("click", () => {
+            // Generate a random letter from the alphabet
+            const randomLetter = String.fromCharCode(
+              65 + Math.floor(Math.random() * 26)
+            );
+
+            // Update the text content of the corresponding letterText element
+            const clickedLetterText = document.querySelector(
+              `#square-${i}-${j} .letter`
+            );
+            clickedLetterText.textContent = randomLetter;
+          });
+
+          row.appendChild(square);
+        }
+
+        container.appendChild(row); // Append the row to the container
+      }
+    </script>
+  </body>
+</html>
