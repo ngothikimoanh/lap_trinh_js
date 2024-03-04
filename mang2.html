@@ -5,18 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        html {
+            background-color: #5F9EA0;
+        }
+        input[type="button"] {
+            background-color: #fff;
+            color: red;
+            margin: 5px ;
+        }
+        input[type="text"] {
+            border: 2px solid #333;
+            border-radius: 2px;
+        }
+        .product {
+            background-color: #00FFFF;
+        }
+        th {
+            border: 2px solid #fff;
+        }
+    </style>
 </head>
 
 <body>
-    Customer Name: <input type="text" id="name"> <br>
-    ID: <input type="text" id="id"> <br>
-    Product Name: <input type="text" id="pname"> <br>
-    Quantity: <input type="text" id="qua"> <br>
-    Price: <input type="text" id="price"> <br>
+    <b>Fullname_Customer</b> <br>
+    <input type="text" id="name"> <br>
+    <b>ID_Pro</b> <br>
+    <input type="text" id="id"> <br>
+    <b>Name_Pro</b> <br>
+    <input type="text" id="pname"> <br>
+    <b>Quantity_Pro</b> <br>
+    <input type="text" id="qua"> <br>
+    <b>Price_Pro</b> <br>
+    <input type="text" id="price"> <br>
+
     <input type="button" value="save" onclick="save()">
     <input type="button" value="Show" onclick="show()">
     <input type="button" value="Reset" onclick="reset()">
-    <table class="table">
+    <table class="product">
         <thead class="thead-dark">
             <tr>
                 <th>Auto increment</th>
@@ -47,7 +73,7 @@
     function show() {
         var html = '';
         for (i in arr) {
-            var n = 1;
+            var n = i;
             n++;
             html + "<tr>";
             html += "<td>" + (n) + "</td>";
