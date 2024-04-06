@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=x  , initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html {
+            background-color: rgb(158, 148, 148);
+        }
+
+        input,
+        select {
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            border: 2px solid #333;
+            border-radius: 2px;
+        }
+
+        h1 {
+            color: white;
+        }
+
+        button {
+            background-color: rgb(115, 115, 231);
+            margin-top: 10px;
+            border: 1px solid;
+            border-radius: 5px;
+            color:white
+        }
+        button:hover {
+            background-color: rgb(230, 6, 6) ;
+        }
+
+        thead {
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: #20d675;
+            color:white;
+        }
+
+        td {
+            border: 1px solid black;
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="manage-hotel">
+        <h1>Quản lí khách sạn</h1>
+        <div style="display: flex; justify-content: space-around;">
+            <div>
+                Tên khách hàng: <input type="text" id="uname"> <br>
+                Số Điện Thoại: <input type="tel" name="" id="tel"><br>
+                Số CMND/CCCD: <input type="number" name="" id="number"> <br>
+                Giới tính : <select name="" id="gender"><br>
+                    <option value="Nữ">Nữ</option>
+                    <option value="Nam">Nam</option>
+                    <option value="">Không muốn tiết lộ</option>
+                </select> <br>
+            </div>
+            <div class="infor-room">
+                Loại phòng: <input type="text" name="" id="rname"><br>
+                Giá phòng : <input type="number" name="" id="price"><br>
+                Số lượng: <input type="number" id="qua"> <br>
+                Ngày đến : <input type="datetime-local" id="sdate"> <br>
+                Ngày đi: <input type="datetime-local" id="edate"> <br>
+                Ghi chú : <input type="text" name="" id="note">
+            </div>
+        </div>
+    </div>
+
+    <button type="button" value="save" onclick="save()">Lưu</button>
+    <button type="button" value="show" onclick="show()">Hiển Thị</button>
+    <button type="button" value="reset" onclick="reset()">Xóa</button>
+
+    <table class="hotel">
+        <thead class="thead-dark">
+            <tr>
+                <th>Số thứ tự</th>
+                <th>Tên khách hàng</th>
+                <th>Số điện thoại</th>
+                <th>Số CMND/CCCD</th>
+                <th>Giới tính</th>
+                <th>Loại phòng</th>
+                <th>Giá phòng</th>
+                <th>Số lượng</th>
+                <th>Ngày đến</th>
+                <th>Ngày đi</th>
+                <th>Ghi chú</th>
+                <th>Tổng tiền</th>
+            </tr>
+        </thead>
+        <tbody id="tbl"></tbody>
+    </table>
+</body>
+<script>
+    var arr = [];
+    function save() {
+        var a = {
+            uname: document.getElementById('uname').value,
+            tel: document.getElementById('tel').value,
+            number: document.getElementById('number').value,
+            gender: document.getElementById('gender').value,
+            rname: document.getElementById('rname').value,
+            price: document.getElementById('price').value,
+            qua: document.getElementById('qua').value,
+            sdate: document.getElementById('sdate').value,
+            edate: document.getElementById('edate').value,
+            note: document.getElementById('note').value,
+        }
+        console.log(a);
+        arr.push(a);
+    }
+    function show() {
+        var html = '';
+        for (i in arr) {
+            var n = i;
+            n++;
+            html + "<tr>";
+            html += "<td>" + (n) + "</td>";
+            html += "<td>" + arr[i].uname + "</td>";
+            html += "<td>" + arr[i].tel + "</td>";
+            html += "<td>" + arr[i].number + "</td>";
+            html += "<td>" + arr[i].gender + "</td>";
+            html += "<td>" + arr[i].rname + "</td>";
+            html += "<td>" + arr[i].price + "</td>";
+            html += "<td>" + arr[i].qua + "</td>";
+            html += "<td>" + arr[i].sdate + "</td>";
+            html += "<td>" + arr[i].edate + "</td>";
+            html += "<td>" + arr[i].note + "</td>";
+
+            html += "<td>" + parseFloat(arr[i].qua) * parseFloat(arr[i].price) + "</td>"; html + "</tr>";
+            html += "</tr>";
+        }
+
+        document.getElementById('tbl').innerHTML = html;
+    }
+    function reset() {
+        document.getElementById('uname').value = '';
+        document.getElementById('tel').value = '';
+        document.getElementById('number').value = '';
+        document.getElementById('gender').value = '';
+        document.getElementById('rname').value = '';
+        document.getElementById('price').value = '';
+        document.getElementById('qua').value = '';
+        document.getElementById('sdate').value = '';
+        document.getElementById('edate').value = '';
+        document.getElementById('note').value = '';
+    }
+</script>
+
+</html>
