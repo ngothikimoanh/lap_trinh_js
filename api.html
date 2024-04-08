@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+</head>
+
+<body>
+    <button id="loadData">Load Data</button>
+    <div id="productList"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const loadDataButton = document.getElementById("loadData");
+            const productListDiv = document.getElementById("productList");
+
+            loadDataButton.addEventListener("click", function () {
+                fetch("db.json")
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Network response was not ok");
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Xử lý dữ liệu tải được từ db.json
+                        const products = data.products;
+                        products.forEach(product => {
+                            const productElement = document.createElement("div");
+                            productElement.classList.add("product");
+                            productElement.innerHTML = `
+                        <h2>${product.title}</h2>
+                        <p>${product.description}</p>
+                        <p>Price: $${product.price}</p>
+                        <p>Rating: ${product.rating}</p>
+                        <img src="${product.thumbnail}" alt="${product.title}" width="100">
+                    `;
+                            productListDiv.appendChild(productElement);
+                        });
+                    })
+                    .catch(error => {
+                        console.error("There was a problem with the fetch operation:", error);
+                    });
+            });
+        });
+
+    </script>
+</body>
+
+</html>
